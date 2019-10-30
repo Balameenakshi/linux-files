@@ -1,0 +1,5 @@
+---
+# handlers file for roles/sample-app
+- name: tomcat8 starting
+  service: name=tomcat8 state=started
+  become: true

@@ -1,0 +1,6 @@
+---
+- include: installation.yml
+- include: firstplaybook.yml
+
+
+...

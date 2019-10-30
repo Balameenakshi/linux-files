@@ -1,0 +1,41 @@
+---
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: task 1 tomcat8 stop
+      service: name=tomcat8 state=stopped
+      become: true
+
+    - name: task 2 remove old files in webapps folder
+      file: path=/var/lib/tomcat8/webapps/sample.war state=absent
+      become: true
+      #become_user: ubuntu
+ 
+    - name: remove old war file from staging area
+      file: path=/tmp/sample.war state=absent
+      become: true
+      #become_user: ubuntu
+
+    - name: download war from cloud
+      get_url: url=https://tomcat.apache.org/tomcat-7.0-doc/appdev/sample/sample.war dest=/tmp/sample.war
+      become: true
+      #become_user: ubuntu
+
+    - name: changemode 777 for war file
+      file: path=/tmp/sample.war mode=0777
+      become: true
+      #become_user: ubuntu
+
+    - name: copy the war
+      #shell: cp /tmp/sample.war /var/lib/tomcat8/webapps/sample.war
+      copy: src=/tmp/sample.war dest=/var/lib/tomcat8/webapps/sample.war
+      become: true
+      #become_user: ubuntu
+      notify: tomcat8 starting
+
+  handlers:
+    - name: tomcat8 starting
+      service: name=tomcat8 state=started
+      become: true
+
+...

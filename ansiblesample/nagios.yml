@@ -1,0 +1,11 @@
+---
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: install nagios
+      apt: name=nagios3 state=installed update_cache=yes
+    - name: install nagios nrpe
+      apt: name=nagios-nrpe-plugin state=installed update_cache=yes
+...
+
+

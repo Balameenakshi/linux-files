@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: Stop tomcat8 service
+      service: name=tomcat8 state=stopped
+      become: true
+    - name: Start tomcat8 service
+      service: name=tomcat8 state=started
+      become: true
+
+...

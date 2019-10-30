@@ -1,0 +1,6 @@
+- name: Task1 to check my IP
+  shell: ifconfig | grep "inet addr"
+  register: ipout
+
+- debug: var=ipout.stdout
+
